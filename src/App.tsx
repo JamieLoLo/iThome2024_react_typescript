@@ -1,10 +1,12 @@
 import './App.css'
-import Todo from './compnents/Todo'
+import Todo from './components/Todo'
 
 function App() {
   return (
     <main>
-      <Todo content='Learn typeScript' isFinished={false} />
+      <Todo isFinished={false}>
+        <p>Learn typeScript</p>
+      </Todo>
     </main>
   )
 }
