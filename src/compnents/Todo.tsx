@@ -1,4 +1,7 @@
-type TodoProps = { content: string; isFinished: boolean }
+interface TodoProps {
+  content: string
+  isFinished: boolean
+}
 
 export default function Todo({ content, isFinished }: TodoProps) {
   return (
