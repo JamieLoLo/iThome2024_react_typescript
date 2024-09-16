@@ -4,7 +4,7 @@ import Todo from './compnents/Todo'
 function App() {
   return (
     <main>
-      <Todo />
+      <Todo content='Learn typeScript' isFinished={false} />
     </main>
   )
 }
