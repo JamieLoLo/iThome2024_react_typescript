@@ -1,19 +1,16 @@
-import { type ReactNode, type PropsWithChildren } from 'react'
+import { FC } from 'react'
 
-// interface TodoProps {
-//   isFinished: boolean
-//   children: ReactNode
-// }
+type TodoProps = { isFinished: boolean }
 
-type TodoProps = PropsWithChildren<{ isFinished: boolean }>
-
-export default function Todo({ isFinished, children }: TodoProps) {
+const Todo: FC<TodoProps> = ({ isFinished }) => {
   return (
     <div className='flex items-center gap-[20px]'>
       <input type='checkbox' checked={isFinished} />
-      {children}
+
       <button>Edit</button>
       <button>Delete</button>
     </div>
   )
 }
+
+export default Todo
