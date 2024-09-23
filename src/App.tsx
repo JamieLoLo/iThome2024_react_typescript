@@ -22,6 +22,10 @@ function App() {
     setTodos((prevTodos) => [...prevTodos, newTodo])
   }
 
+  const deleteTodoHandler = (id: number) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
+  }
+
   return (
     <main className='w-[500px] h-[100dvh] portrait:w-[90%] flex flex-col'>
       <Header image={{ src: logo, alt: 'logo' }}>
@@ -37,7 +41,7 @@ function App() {
         />
         <button onClick={createTodoHandler}>Create</button>
       </div>
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onDeleteTodo={deleteTodoHandler} />
     </main>
   )
 }
