@@ -1,20 +1,20 @@
 import './App.css'
 import Header from './components/Header'
-import Todo from './components/Todo'
 import logo from './assets/logo.png'
 import { useState } from 'react'
+import TodoList from './components/TodoList'
 
-type Todo = {
+export type TodoItem = {
   id: number
   title: string
   isFinished: boolean
 }
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([])
+  const [todos, setTodos] = useState<TodoItem[]>([])
 
   const createTodoHandler = () => {
-    const newTodo: Todo = {
+    const newTodo: TodoItem = {
       id: Math.random(),
       title: 'Learn JavaScript',
       isFinished: false,
@@ -37,13 +37,7 @@ function App() {
         />
         <button onClick={createTodoHandler}>Create</button>
       </div>
-      {todos.map((todo) => (
-        <li key={todo.id} className='list-none'>
-          <Todo isFinished={todo.isFinished}>
-            <p>{todo.title}</p>
-          </Todo>
-        </li>
-      ))}
+      <TodoList todos={todos} />
     </main>
   )
 }
