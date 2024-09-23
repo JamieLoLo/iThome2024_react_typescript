@@ -1,5 +1,6 @@
-<h1 style="text-decoration: none;">2024 iThome 鐵人賽</h1>
-<h2>React 開發者的 TypeScript 探索之旅</h2>
+# 2024 iThome 鐵人賽
+
+## React 開發者的 TypeScript 探索之旅
 
 </br>
 1. 下載專案
