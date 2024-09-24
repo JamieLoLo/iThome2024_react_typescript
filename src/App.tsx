@@ -3,6 +3,7 @@ import Header from './components/Header'
 import logo from './assets/logo.png'
 import { useState } from 'react'
 import TodoList from './components/TodoList'
+import CreateTodo from './components/CreateTodo'
 
 export type TodoItem = {
   id: number
@@ -13,10 +14,10 @@ export type TodoItem = {
 function App() {
   const [todos, setTodos] = useState<TodoItem[]>([])
 
-  const createTodoHandler = () => {
+  const createTodoHandler = (title: string) => {
     const newTodo: TodoItem = {
       id: Math.random(),
-      title: 'Learn JavaScript',
+      title: title,
       isFinished: false,
     }
     setTodos((prevTodos) => [...prevTodos, newTodo])
@@ -31,16 +32,7 @@ function App() {
       <Header image={{ src: logo, alt: 'logo' }}>
         <h1>Todo List</h1>
       </Header>
-      <div className='w-full mb-[20px] h-fit flex'>
-        <label htmlFor='newTodo'></label>
-        <input
-          type='text'
-          id='newTodo'
-          name='newTodo'
-          className='flex-1 mr-[16px] px-3 rounded-[5px] focus:outline-none'
-        />
-        <button onClick={createTodoHandler}>Create</button>
-      </div>
+      <CreateTodo onCreateTodo={createTodoHandler} />
       <TodoList todos={todos} onDeleteTodo={deleteTodoHandler} />
     </main>
   )
