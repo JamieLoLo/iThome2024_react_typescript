@@ -4,6 +4,7 @@ import logo from './assets/logo.png'
 import { useState } from 'react'
 import TodoList from './components/TodoList'
 import CreateTodo from './components/CreateTodo'
+import Message from './components/Message'
 
 export type TodoItem = {
   id: number
@@ -11,16 +12,40 @@ export type TodoItem = {
   isFinished: boolean
 }
 
+export type MessageDetails = {
+  visible: boolean
+  message: string
+  mode: 'error' | 'success'
+}
+
 function App() {
   const [todos, setTodos] = useState<TodoItem[]>([])
+  const [messageDetails, setMessageDetails] = useState<MessageDetails>({
+    visible: false,
+    message: '',
+    mode: 'error',
+  })
 
   const createTodoHandler = (title: string) => {
+    if (title.trim().length === 0) {
+      setMessageDetails({
+        visible: true,
+        message: 'Input cannot be empty!',
+        mode: 'error',
+      })
+      return
+    }
     const newTodo: TodoItem = {
       id: Math.random(),
       title: title,
       isFinished: false,
     }
     setTodos((prevTodos) => [...prevTodos, newTodo])
+    setMessageDetails({
+      visible: true,
+      message: 'Todo created successfully!',
+      mode: 'success',
+    })
   }
 
   const deleteTodoHandler = (id: number) => {
@@ -34,6 +59,12 @@ function App() {
       </Header>
       <CreateTodo onCreateTodo={createTodoHandler} />
       <TodoList todos={todos} onDeleteTodo={deleteTodoHandler} />
+      <Message
+        visible={messageDetails.visible}
+        mode={messageDetails.mode}
+        message={messageDetails.message}
+        onMessageVisible={setMessageDetails}
+      />
     </main>
   )
 }
