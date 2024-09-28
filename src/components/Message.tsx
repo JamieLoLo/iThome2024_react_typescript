@@ -1,5 +1,5 @@
 import { type SetStateAction, useEffect } from 'react'
-import { type MessageDetails } from '../App'
+import { type MessageDetails } from '../store/TodoContext'
 
 type MessageProps = MessageDetails & {
   onMessageVisible: (value: SetStateAction<MessageDetails>) => void

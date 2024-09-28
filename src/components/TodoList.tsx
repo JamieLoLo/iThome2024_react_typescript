@@ -1,5 +1,5 @@
 import Todo from './Todo'
-import { type TodoItem } from '../App'
+import { type TodoItem } from '../store/TodoContext'
 
 type TodoListProps = {
   todos: TodoItem[]

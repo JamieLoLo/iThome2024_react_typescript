@@ -5,18 +5,7 @@ import { useState } from 'react'
 import TodoList from './components/TodoList'
 import CreateTodo from './components/CreateTodo'
 import Message from './components/Message'
-
-export type TodoItem = {
-  id: number
-  title: string
-  isFinished: boolean
-}
-
-export type MessageDetails = {
-  visible: boolean
-  message: string
-  mode: 'error' | 'success'
-}
+import { type MessageDetails, type TodoItem } from './store/TodoContext'
 
 function App() {
   const [todos, setTodos] = useState<TodoItem[]>([])
@@ -26,6 +15,7 @@ function App() {
     mode: 'error',
   })
 
+  // Create Todo Handler
   const createTodoHandler = (title: string) => {
     if (title.trim().length === 0) {
       setMessageDetails({
@@ -48,6 +38,7 @@ function App() {
     })
   }
 
+  // Delete Todo Handler
   const deleteTodoHandler = (id: number) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
   }
