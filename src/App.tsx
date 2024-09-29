@@ -1,14 +1,14 @@
 import './App.css'
 import Header from './components/Header'
 import logo from './assets/logo.png'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import TodoList from './components/TodoList'
 import CreateTodo from './components/CreateTodo'
 import Message from './components/Message'
-import { type MessageDetails, type TodoItem } from './store/TodoContext'
+import { TodoContext, type MessageDetails } from './store/TodoContext'
 
 function App() {
-  const [todos, setTodos] = useState<TodoItem[]>([])
+  const { dispatch } = useContext(TodoContext)
   const [messageDetails, setMessageDetails] = useState<MessageDetails>({
     visible: false,
     message: '',
@@ -25,12 +25,7 @@ function App() {
       })
       return
     }
-    const newTodo: TodoItem = {
-      id: Math.random(),
-      title: title,
-      isFinished: false,
-    }
-    setTodos((prevTodos) => [...prevTodos, newTodo])
+    dispatch({ type: 'ADD_TODO', payload: title })
     setMessageDetails({
       visible: true,
       message: 'Todo created successfully!',
@@ -40,7 +35,7 @@ function App() {
 
   // Delete Todo Handler
   const deleteTodoHandler = (id: number) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
+    dispatch({ type: 'DELETE_TODO', payload: id })
   }
 
   return (
@@ -49,7 +44,7 @@ function App() {
         <h1>Todo List</h1>
       </Header>
       <CreateTodo onCreateTodo={createTodoHandler} />
-      <TodoList todos={todos} onDeleteTodo={deleteTodoHandler} />
+      <TodoList onDeleteTodo={deleteTodoHandler} />
       <Message
         visible={messageDetails.visible}
         mode={messageDetails.mode}

@@ -1,12 +1,13 @@
 import Todo from './Todo'
-import { type TodoItem } from '../store/TodoContext'
+import { TodoContext } from '../store/TodoContext'
+import { useContext } from 'react'
 
 type TodoListProps = {
-  todos: TodoItem[]
   onDeleteTodo: (id: number) => void
 }
 
-export default function TodoList({ todos, onDeleteTodo }: TodoListProps) {
+export default function TodoList({ onDeleteTodo }: TodoListProps) {
+  const { todos } = useContext(TodoContext).state
   return (
     <ul>
       {todos.map((todo) => (
