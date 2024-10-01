@@ -16,6 +16,8 @@ export type MessageDetails = {
 type ActionType =
   | { type: 'ADD_TODO'; payload: string }
   | { type: 'DELETE_TODO'; payload: number }
+  | { type: 'EDIT_TODO_TITLE'; payload: { id: number; title: string } }
+  | { type: 'TOGGLE_TODO_ISFINISHED'; payload: number }
 
 // 定義狀態
 type StateType = {
@@ -42,6 +44,24 @@ const todoReducer = (state: StateType, action: ActionType): StateType => {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
+      }
+    case 'EDIT_TODO_TITLE':
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id
+            ? { ...todo, title: action.payload.title }
+            : todo
+        ),
+      }
+    case 'TOGGLE_TODO_ISFINISHED':
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload
+            ? { ...todo, isFinished: !todo.isFinished }
+            : todo
+        ),
       }
     default:
       return state

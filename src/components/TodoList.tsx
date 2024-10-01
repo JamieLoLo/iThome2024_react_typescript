@@ -17,7 +17,7 @@ export default function TodoList({ onDeleteTodo }: TodoListProps) {
             id={todo.id}
             onDelete={onDeleteTodo}
           >
-            <p>{todo.title}</p>
+            {todo.title}
           </Todo>
         </li>
       ))}
