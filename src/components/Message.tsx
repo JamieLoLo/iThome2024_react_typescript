@@ -1,23 +1,14 @@
-import { type SetStateAction, useEffect } from 'react'
-import { type MessageDetails } from '../store/TodoContext'
+import { useContext, useEffect } from 'react'
+import { TodoContext } from '../store/TodoContext'
 
-type MessageProps = MessageDetails & {
-  onMessageVisible: (value: SetStateAction<MessageDetails>) => void
-}
+export default function Message() {
+  const { dispatch } = useContext(TodoContext)
+  const { visible, message, mode } = useContext(TodoContext).state.messageDetail
 
-export default function Message({
-  visible,
-  message,
-  mode,
-  onMessageVisible,
-}: MessageProps) {
   useEffect(() => {
     if (visible) {
       const timer = setTimeout(() => {
-        onMessageVisible((prev: MessageDetails) => ({
-          ...prev,
-          visible: false,
-        }))
+        dispatch({ type: 'MESSAGE', payload: { visible: false } })
       }, 3000)
 
       return () => clearTimeout(timer)

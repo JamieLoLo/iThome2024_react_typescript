@@ -39,12 +39,28 @@ export default function Todo({
     if (typeof newTitle === 'string' && newTitle.trim().length === 0) {
       setNewTitle(children)
       setIsEditing(false)
+      dispatch({
+        type: 'MESSAGE',
+        payload: {
+          visible: true,
+          message: 'Title cannot be empty!',
+          mode: 'error',
+        },
+      })
       return
     }
     if (typeof newTitle === 'string' && newTitle.trim().length > 0) {
       dispatch({
         type: 'EDIT_TODO_TITLE',
         payload: { id, title: newTitle },
+      })
+      dispatch({
+        type: 'MESSAGE',
+        payload: {
+          visible: true,
+          message: 'Title updated successfully!',
+          mode: 'success',
+        },
       })
     }
   }
@@ -54,6 +70,14 @@ export default function Todo({
     dispatch({
       type: 'TOGGLE_TODO_ISFINISHED',
       payload: id,
+    })
+    dispatch({
+      type: 'MESSAGE',
+      payload: {
+        visible: true,
+        message: 'Todo updated successfully!',
+        mode: 'success',
+      },
     })
   }
 

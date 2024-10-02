@@ -8,8 +8,8 @@ export type TodoItem = {
 
 export type MessageDetails = {
   visible: boolean
-  message: string
-  mode: 'error' | 'success'
+  message?: string
+  mode?: 'error' | 'success'
 }
 
 //  定義 actions
@@ -18,15 +18,22 @@ type ActionType =
   | { type: 'DELETE_TODO'; payload: number }
   | { type: 'EDIT_TODO_TITLE'; payload: { id: number; title: string } }
   | { type: 'TOGGLE_TODO_ISFINISHED'; payload: number }
+  | { type: 'MESSAGE'; payload: MessageDetails }
 
 // 定義狀態
 type StateType = {
   todos: TodoItem[]
+  messageDetail: MessageDetails
 }
 
 // 初始狀態
 const initialState: StateType = {
   todos: [],
+  messageDetail: {
+    visible: false,
+    message: '',
+    mode: 'error',
+  },
 }
 
 // reducer
@@ -62,6 +69,14 @@ const todoReducer = (state: StateType, action: ActionType): StateType => {
             ? { ...todo, isFinished: !todo.isFinished }
             : todo
         ),
+      }
+    case 'MESSAGE':
+      return {
+        ...state,
+        messageDetail: {
+          ...state.messageDetail, // 保留現有的 message 屬性
+          ...action.payload, // 只覆蓋傳入的屬性
+        },
       }
     default:
       return state
