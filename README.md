@@ -2,7 +2,11 @@
 
 ## React 開發者的 TypeScript 探索之旅
 
-</br>
+[鐵人賽文章連結](https://ithelp.ithome.com.tw/users/20169025/ironman/7556)
+
+---
+
+### 流程
 
 1. 下載專案
 
